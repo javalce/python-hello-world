@@ -1,6 +1,13 @@
-def main():
-    print("Hello from python-hello-world!")
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
 
 
-if __name__ == "__main__":
-    main()
+class Message(BaseModel):
+    message: str
+
+
+@app.get("/")
+async def read_root() -> Message:
+    return Message(message="Hello, World!")
